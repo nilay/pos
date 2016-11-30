@@ -47,3 +47,8 @@ group :development do
   gem 'rubocop', '0.37.2', require: false
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
+ruby '2.3.1'
