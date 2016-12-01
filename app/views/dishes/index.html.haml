@@ -1,0 +1,35 @@
+.row
+  .col-md-6
+    %h4 Listing Dishes
+  .col-md-6
+    = link_to 'New Dishes', new_dish_path, class:'pull-right btn btn-primary'
+
+.table-responsive
+
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Description
+        %th Category
+        %th Price
+        %th Published
+        %th
+        %th
+        %th
+
+    %tbody
+      - @dishes.each do |dish|
+        %tr
+          %td= dish.name
+          %td= dish.description
+          %td= dish.category.name if dish.category
+          %td= dish.price
+          %td= dish.published? ? 'Yes' : 'No'
+          %td= link_to 'Show', dish
+          %td= link_to 'Edit', edit_dish_path(dish)
+          %td= link_to 'Destroy', dish, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+.clearfix
+  = will_paginate @dishes, renderer: BootstrapPagination::Rails
+
