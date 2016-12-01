@@ -1,0 +1,26 @@
+.row
+  .col-md-6
+    %h4 Listing Tables
+  .col-md-6
+    = link_to 'New Table', new_table_path, class:'pull-right btn btn-primary'
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Capacity
+        %th Description
+        %th
+        %th
+        %th
+
+    %tbody
+      - @tables.each do |table|
+        %tr
+          %td= table.name
+          %td= table.capacity
+          %td= table.description
+          %td= link_to 'Show', table
+          %td= link_to 'Edit', edit_table_path(table)
+          %td= link_to 'Destroy', table, :method => :delete, :data => { :confirm => 'Are you sure?' }

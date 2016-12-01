@@ -1,0 +1,21 @@
+.row
+  .col-md-6
+    = form_for @table do |f|
+      - if @table.errors.any?
+        #error_explanation
+          %h5= "#{pluralize(@table.errors.count, "error")} prohibited this table from being saved:"
+          %ul
+            - @table.errors.full_messages.each do |msg|
+              %li= msg
+
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
+      .form-group
+        = f.label :capacity
+        = f.text_field :capacity, class: 'form-control'
+      .form-group
+        = f.label :description
+        = f.text_field :description, class: 'form-control'
+      .form-group
+        = f.submit 'Save', class: 'btn btn-primary'
