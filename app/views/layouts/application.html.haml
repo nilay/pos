@@ -5,7 +5,7 @@
     %meta{'http-equiv'=>"X-UA-Compatible", content:"IE=edge,chrome=1"}
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %meta{name: 'robots', content: 'noindex'}
-    %mets{name: 'googlebot', content: 'noindex'}
+    %meta{name: 'googlebot', content: 'noindex'}
     %title= content_for?(:title) ? yield(:title) : 'CrossOver Test Project'
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'CrossOver Test project'}"}
 
@@ -14,15 +14,16 @@
     = csrf_meta_tags
     = yield :custom_heads
   %body
-    - if user_signed_in?
-      = render 'layouts/navigation'
+    .wrapper
+      - if user_signed_in?
+        = render 'layouts/navigation'
 
-    = render 'layouts/alerts'
+      = render 'layouts/alerts'
 
-    = yield
+      = yield
 
-  - if user_signed_in?
-    = render 'layouts/footer'
+      - if user_signed_in?
+        = render 'layouts/footer'
 
   = javascript_include_tag 'application'
 
