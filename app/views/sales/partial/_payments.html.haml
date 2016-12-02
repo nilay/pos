@@ -1,0 +1,13 @@
+%h5.heading Payment
+.box-area
+  .table-responsive
+    %table.table
+      %tbody
+        - payments.each do |payment|
+          %tr
+            %td= payment.payment_type
+            %td= payment.amount
+            %td= payment.created_at
+
+%br
+%button.btn.btn-success{'data-toggle'=> "modal", 'data-target'=>"#payModal"} Make Pay

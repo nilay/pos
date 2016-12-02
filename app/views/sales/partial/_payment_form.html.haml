@@ -1,0 +1,15 @@
+#payModal.modal.fade{:role => "dialog"}
+  .modal-dialog
+    / Modal content
+    .modal-content
+      .modal-body
+        = form_tag sale_payments_path(sale), format: :js, 'data-type' => :js, id: "pform" do |f|
+          .form-group
+            = label_tag :payment_type
+            = select_tag 'payment[payment_type]', options_for_select(%w(Cash Card)), {class: 'form-control'}
+          .form-group
+            = label_tag :amount
+            = text_field_tag 'payment[amount]', '', {class: 'form-control'}
+
+      .modal-footer
+        %button.btn.btn-default{id: 'pay-button', type: 'button'} Make Payment

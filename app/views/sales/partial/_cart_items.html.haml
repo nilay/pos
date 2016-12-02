@@ -1,0 +1,19 @@
+%h5.heading Cart Items
+.cart-box-area-scrollable
+  .table-responsive
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Quantity
+          %th Price
+          %th Total Price
+
+      %tbody
+        - cart_items.each do |item|
+          %tr
+            %td= item.dish.name if item.dish
+            %td= item.quantity
+            %td= item.price
+            %td= item.total_price
+

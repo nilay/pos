@@ -36,7 +36,7 @@
               %a{:href => "/configurations"}
                 %span.glyphicon.glyphicon-adjust
                 Items
-        %li= link_to 'New Sale', '/', :class => "btn btn-success btn-lg active"
+        %li= link_to 'New Sale', new_sale_path, :class => "btn btn-success active"
       %ul.nav.navbar-nav.navbar-right
         %li= link_to 'Logout', destroy_user_session_path, :method => :delete
         %li.dropdown

@@ -9,5 +9,9 @@ Rails.application.routes.draw do
     resources :dishes
   end
   resources :dishes
+  resources :sales do
+    resources :payments
+    resources :line_items
+  end
 
 end

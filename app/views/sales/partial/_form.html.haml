@@ -1,0 +1,18 @@
+%h5.heading Other details
+.box-area
+  = form_for sale, format: :json, :html => {:id => "sform"} do |f|
+    .form-group
+      = f.label :customer
+      = collection_select :sale, :customer_id, Customer.all, :id, :first_name, {prompt: "Select a Custome"}, {class: "form-control"}
+    .form-group
+      = f.label :waiter
+      = collection_select :sale, :waiter_id, Waiter.all, :id, :first_name, {prompt: "Select a Waiter"}, {class: "form-control"}
+    .form-group
+      = f.label :table
+      = collection_select :sale, :table_id, Table.all, :id, :name, {prompt: "Select a Table"}, {class: "form-control"}
+    .form-group
+      = f.label :comments
+      = f.text_area :comments, class: 'form-control'
+    .form-group
+      = f.button 'Update', class: 'btn btn-primary', type: 'button', id: 'sale_submit'
+      %span#message_confirmation.hidden Updated successfully

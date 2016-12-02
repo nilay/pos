@@ -1,0 +1,16 @@
+
+
+.row
+  .col-md-6.cart-box{id: 'cart_container'}
+    = render 'sales/partial/cart_items', cart_items: @cart_items
+    .invoice-box
+      = render 'sales/partial/invoice_brief', sale: @sale
+  .col-md-6.item-list-box{'data-url' =>  sale_line_items_path(@sale)}
+    = render 'sales/partial/items', dishes: @dishes
+.row
+  .col-md-6.form-box
+    = render 'sales/partial/form', sale: @sale
+  .col-md-6.payment-box{id: 'payment-container'}
+    = render 'sales/partial/payments', payments: @payments
+
+= render 'sales/partial/payment_form', sale: @sale

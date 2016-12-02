@@ -1,0 +1,1 @@
+($ '#payment-container').html("<%= j render(partial: 'sales/partial/payments', locals: { payments: @payments }) %>")

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130175708) do
+ActiveRecord::Schema.define(version: 20161201105509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20161130175708) do
     t.string   "name"
     t.text     "description"
     t.decimal  "price",       precision: 8, scale: 2
-    t.integer  "quantity",                            default: 0
     t.boolean  "published",                           default: true
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -130,7 +129,4 @@ ActiveRecord::Schema.define(version: 20161130175708) do
   add_foreign_key "line_items", "dishes"
   add_foreign_key "line_items", "sales"
   add_foreign_key "payments", "sales"
-  add_foreign_key "sales", "customers"
-  add_foreign_key "sales", "tables"
-  add_foreign_key "sales", "waiters"
 end

@@ -1,0 +1,19 @@
+%h5.heading Select item by clicking + button to add to cart
+.items-box-area-scrollable
+  .table-responsive
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Category
+          %th Price
+          %th
+
+      %tbody
+        - dishes.each do |dish|
+          %tr
+            %td= dish.name
+            %td= dish.category.name if dish.category
+            %td= dish.price
+            %td= link_to '+', 'javascript://', {class: 'btn btn-primary dish-items', 'data-id' => dish.id}
+

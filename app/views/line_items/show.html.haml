@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Dist:
+  = @line_item.dist_id
+
+= link_to 'Edit', edit_line_item_path(@line_item)
+\|
+= link_to 'Back', line_items_path
