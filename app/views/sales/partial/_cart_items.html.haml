@@ -5,15 +5,30 @@
       %thead
         %tr
           %th Name
-          %th Quantity
-          %th Price
-          %th Total Price
+          %th.text-right Quantity
+          %th.text-right Price
+          %th.text-right Total Price
 
       %tbody
         - cart_items.each do |item|
           %tr
             %td= item.dish.name if item.dish
-            %td= item.quantity
-            %td= item.price
-            %td= item.total_price
+            %td.text-right= item.quantity
+            %td.text-right= format('%.2f' % item.price)
+            %td.text-right= format('%.2f' % item.total_price)
 
+.invoice-box
+  .table-responsive
+    %table.inv-table
+      %tr
+        %td.pull-right.inv-data #{format('%.2f' % sale.total_amount)}
+        %td.pull-right Total Price:
+      %tr
+        %td.pull-right.inv-data #{format('%.2f' % sale.tax)}
+        %td.pull-right Tax:
+      %tr
+        %td.pull-right.inv-data #{format('%.2f' % sale.discount)}
+        %td.pull-right Discount:
+      %tr
+        %td.pull-right.inv-data #{format('%.2f' % sale.net_amount)}
+        %td.pull-right Net Amount:

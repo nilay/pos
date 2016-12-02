@@ -1,1 +1,1 @@
-($ '#cart_container').html("<%= j render(partial: 'sales/partial/cart_items', locals: { cart_items: @cart_items }) %>")
+($ '#cart_container').html("<%= j render(partial: 'sales/partial/cart_items', locals: { cart_items: @cart_items, sale: @sale }) %>")

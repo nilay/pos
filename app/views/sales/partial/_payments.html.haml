@@ -6,8 +6,8 @@
         - payments.each do |payment|
           %tr
             %td= payment.payment_type
-            %td= payment.amount
-            %td= payment.created_at
+            %td.text-right= format('%.2f' % payment.amount)
+            %td.text-right= payment.created_at.strftime('%a %d %b %Y at %H:%M')
 
 %br
 %button.btn.btn-success{'data-toggle'=> "modal", 'data-target'=>"#payModal"} Make Pay

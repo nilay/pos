@@ -31,11 +31,13 @@ class LineItemsController < ApplicationController
 
     @line_item = @sale.line_items.new unless @line_item
     @line_item.set_price(dish.price)
+    @line_item.dish_id = dish.id
 
 
 
     respond_to do |format|
       if @line_item.save
+
         @cart_items = @sale.line_items.all
         format.html { redirect_to @line_item, notice: 'Line item was successfully created.' }
         format.json { render :show, status: :created }

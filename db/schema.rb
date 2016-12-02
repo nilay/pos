@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201105509) do
+ActiveRecord::Schema.define(version: 20161202191424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,11 +75,10 @@ ActiveRecord::Schema.define(version: 20161201105509) do
   add_index "payments", ["sale_id"], name: "index_payments_on_sale_id", using: :btree
 
   create_table "sales", force: :cascade do |t|
-    t.decimal  "amount",           precision: 8, scale: 2
-    t.decimal  "total_amount",     precision: 8, scale: 2
-    t.decimal  "remaining_amount"
-    t.decimal  "discount",         precision: 8, scale: 2
-    t.decimal  "tax",              precision: 8, scale: 2
+    t.decimal  "total_amount",     precision: 8, scale: 2, default: 0.0
+    t.decimal  "remaining_amount",                         default: 0.0
+    t.decimal  "discount",         precision: 8, scale: 2, default: 0.0
+    t.decimal  "tax",              precision: 8, scale: 2, default: 0.0
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"

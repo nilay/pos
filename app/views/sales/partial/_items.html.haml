@@ -6,7 +6,7 @@
         %tr
           %th Name
           %th Category
-          %th Price
+          %th.text-right Price
           %th
 
       %tbody
@@ -14,6 +14,6 @@
           %tr
             %td= dish.name
             %td= dish.category.name if dish.category
-            %td= dish.price
+            %td.text-right= format('%.2f' % dish.price)
             %td= link_to '+', 'javascript://', {class: 'btn btn-primary dish-items', 'data-id' => dish.id}
 
