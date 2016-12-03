@@ -1,19 +1,39 @@
-%h1.heading Listing sales
-
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
-
-  %tbody
-    - @sales.each do |sale|
+.row
+  .col-md-6
+    %h4.heading Listing Orders
+  .col-md-6
+    = link_to 'New Order', new_sale_path, class:'pull-right btn btn-primary'
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
       %tr
-        %td= link_to 'Show', sale
-        %td= link_to 'Edit', edit_sale_path(sale)
-        %td= link_to 'Destroy', sale, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %th Order No.
+        %th Customer
+        %th Waiter
+        %th Table
+        %th Total Amount
+        %th Tax
+        %th Discount
+        %th Net Amount
+        %th
+        %th
+        %th
 
+
+    %tbody
+      - @sales.each do |sale|
+        %tr
+          %td= sale.id
+          %td= sale.customer.name
+          %td= sale.waiter.name
+          %td= sale.table.name
+          %td= sale.total_amount
+          %td= sale.discount
+          %td= sale.tax
+          %td= sale.net_amount
+          %td= link_to 'Show', sale
+          %td= link_to 'Edit', edit_sale_path(sale)
+          %td= link_to 'Destroy', sale, :method => :delete, :data => { :confirm => 'Are you sure?' }
 %br
-
-= link_to 'New Sale', new_sale_path
+.clearfix
+  = will_paginate @sales, renderer: BootstrapPagination::Rails

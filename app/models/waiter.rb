@@ -6,4 +6,8 @@ class Waiter < ActiveRecord::Base
 
   has_many :customers, through: :sales
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
 end
