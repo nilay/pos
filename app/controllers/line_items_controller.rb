@@ -26,17 +26,8 @@ class LineItemsController < ApplicationController
   # POST /line_items.json
   def create
     dish = Dish.find(params[:line_item][:dish_id])
-    @line_item = @sale.line_items.find_by(dish_id: params[:line_item][:dish_id])
-    @line_item.quantity = @line_item.quantity + 1 if @line_item
-
-    @line_item = @sale.line_items.new unless @line_item
-    @line_item.set_price(dish.price)
-    @line_item.dish_id = dish.id
-
-
-
     respond_to do |format|
-      if @line_item.save
+      if @sale.add_dish(dish)
 
         @cart_items = @sale.line_items.all
         format.html { redirect_to @line_item, notice: 'Line item was successfully created.' }
