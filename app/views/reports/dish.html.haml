@@ -17,6 +17,7 @@
         %th Name
         %th Description
         %th Category
+        %th.text-right Total Quantity
         %th.text-right Total Sale
 
     %tbody
@@ -25,6 +26,8 @@
           %td= item.dish.name
           %td= item.dish.description
           %td= item.dish.category.name if item.dish.category
+          %td.text-right
+            %b.text-danger #{item.total_quantity}
           %td.text-right
             %b.text-danger #{format('%.2f' % item.total_sale)}
 

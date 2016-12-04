@@ -7,6 +7,7 @@
       %th Name
       %th Description
       %th Category
+      %th{align:"right"} Total quantity
       %th{align:"right"} Total Sale
 
   %tbody
@@ -15,5 +16,7 @@
         %td{style:"border-top: 1px solid;"}= item.dish.name
         %td{style:"border-top: 1px solid;"}= item.dish.description
         %td{style:"border-top: 1px solid;"}= item.dish.category.name if item.dish.category
+        %td{align:"right", style:"border-top: 1px solid;"}
+          %b #{item.total_quantity}
         %td{align:"right", style:"border-top: 1px solid;"}
           %b #{format('%.2f' % item.total_sale)}

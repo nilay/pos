@@ -17,10 +17,11 @@ Rails.application.routes.draw do
   resource :report do
     member do
       get :order
-      get :payment
       get :waiter
       get :dish
       get :pdfdish
+      get :pdfwaiter
+      get :pdforder
     end
   end
 

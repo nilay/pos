@@ -1,0 +1,39 @@
+%h3 Sales Total (Date wise)
+= search_form_for @q, url: order_report_path do |f|
+  .row
+    .col-md-4
+      = f.search_field :created_at_gteq, class: 'form-control date_picker', placeholder: 'From', id: 'from_date', autocomplete: 'off', onkeydown: 'return false', value: (@params[:q][:created_at_gteq]  if @params[:q])
+    .col-md-4
+      = f.search_field :created_at_lteq, class: 'form-control date_picker', placeholder: 'To', id: 'to_date', autocomplete: 'off', onkeydown: 'return false', value: (@params[:q][:created_at_lteq] if @params[:q])
+    .col-md-4
+      %button{type: "submit", class: "btn btn-info"} Search
+%br
+
+
+.table-responsive
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th Date
+        %th.text-right Total Orders
+        %th.text-right Total Discount
+        %th.text-right Total Tax
+        %th.text-right Total Sale
+
+    %tbody
+      - @sales.each do |sale|
+        %tr
+          %td= sale.sale_date
+          %td.text-right
+            %b.text-danger #{sale.total_orders}
+          %td.text-right
+            %b.text-danger #{sale.total_discount}
+          %td.text-right
+            %b.text-danger #{sale.total_tax}
+          %td.text-right
+            %b.text-danger #{format('%.2f' % sale.total_sale_amount)}
+
+%p#pdf_link= link_to "Download Report (PDF)", pdforder_report_path(), target: '_blank', class:'btn btn-success'
+
+.clearfix
+  = will_paginate @sales, renderer: BootstrapPagination::Rails

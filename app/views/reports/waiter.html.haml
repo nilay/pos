@@ -1,0 +1,36 @@
+%h3 Total sale (Waiter wise)
+= search_form_for @q, url: waiter_report_path do |f|
+  .row
+    .col-md-4
+      = f.search_field :created_at_gteq, class: 'form-control date_picker', placeholder: 'From', id: 'from_date', autocomplete: 'off', onkeydown: 'return false', value: (@params[:q][:created_at_gteq]  if @params[:q])
+    .col-md-4
+      = f.search_field :created_at_lteq, class: 'form-control date_picker', placeholder: 'To', id: 'to_date', autocomplete: 'off', onkeydown: 'return false', value: (@params[:q][:created_at_lteq] if @params[:q])
+    .col-md-4
+      %button{type: "submit", class: "btn btn-info"} Search
+%br
+
+
+.table-responsive
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th Name
+        %th.text-right Total Orders
+        %th.text-right Total Customers
+        %th.text-right Total Sale
+
+    %tbody
+      - @waiters.each do |waiter|
+        %tr
+          %td= waiter.name
+          %td.text-right
+            %b.text-danger #{waiter.total_orders}
+          %td.text-right
+            %b.text-danger #{waiter.total_customers}
+          %td.text-right
+            %b.text-danger #{format('%.2f' % waiter.total_sale_amount)}
+
+%p#pdf_link= link_to "Download Report (PDF)", pdfwaiter_report_path(), target: '_blank', class:'btn btn-success'
+
+.clearfix
+  = will_paginate @waiters, renderer: BootstrapPagination::Rails

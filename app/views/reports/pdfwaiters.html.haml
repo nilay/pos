@@ -1,0 +1,21 @@
+%h3 Total sale (Waiter wise)
+
+
+%table{width:"100%", style:"border: 1px solid;"}
+  %thead
+    %tr
+      %th Waiter Name
+      %th{align:"right"} Total Orders
+      %th{align:"right"} Total Customers
+      %th{align:"right"} Total Sale
+
+  %tbody
+    - @waiters.each do |waiter|
+      %tr
+        %td{style:"border-top: 1px solid;"}= waiter.name
+        %td{align:"right", style:"border-top: 1px solid;"}
+          %b #{waiter.total_orders}
+        %td{align:"right", style:"border-top: 1px solid;"}
+          %b #{waiter.total_customers}
+        %td{align:"right", style:"border-top: 1px solid;"}
+          %b #{format('%.2f' % waiter.total_sale_amount)}

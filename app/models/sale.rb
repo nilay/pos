@@ -34,4 +34,9 @@ class Sale < ActiveRecord::Base
     (self.total_amount || 0 ) + (self.tax || 0) - (self.discount || 0 )
   end
 
+  def self.report_data
+    Sale.select("to_char(sales.created_at,'MM/DD/YYYY') as sale_date, count(sales.id) as total_orders, sum(sales.total_amount) as total_sale_amount, sum(sales.discount) as total_discount, sum(sales.tax) as total_tax").group("to_char(sales.created_at,'MM/DD/YYYY')")
+
+  end
+
 end
