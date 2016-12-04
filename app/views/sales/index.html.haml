@@ -24,9 +24,9 @@
       - @sales.each do |sale|
         %tr
           %td= sale.id
-          %td= sale.customer.name
-          %td= sale.waiter.name
-          %td= sale.table.name
+          %td= sale.customer.name if sale.customer
+          %td= sale.waiter.name if sale.waiter
+          %td= sale.table.name if sale.table
           %td= sale.total_amount
           %td= sale.discount
           %td= sale.tax
