@@ -14,4 +14,15 @@ Rails.application.routes.draw do
     resources :line_items
   end
 
+  resource :report do
+    member do
+      get :order
+      get :payment
+      get :waiter
+      get :dish
+      get :pdfdish
+    end
+  end
+
+
 end

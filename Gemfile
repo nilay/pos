@@ -26,6 +26,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 
+gem 'kaminari'
+gem 'ransack'
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
 
 
 group :development, :test do

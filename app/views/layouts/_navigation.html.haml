@@ -23,20 +23,25 @@
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             %span Reports
+            %b.caret
           %ul.dropdown-menu
             %li
-              %a{:href => "/users"}
-                %span.glyphicon.glyphicon-user
-                Sales
+              %a{:href => order_report_path}
+                %span.glyphicon.glyphicon-menu-hamburger
+                Orders
             %li
-              %a{:href => "/reports"}
-                %span.glyphicon.glyphicon-stats
+              %a{:href => payment_report_path}
+                %span.glyphicon.glyphicon-usd
+                Payments
+            %li
+              %a{:href => waiter_report_path}
+                %span.glyphicon.glyphicon-user
                 Waiters
             %li
-              %a{:href => "/configurations"}
-                %span.glyphicon.glyphicon-adjust
-                Items
-        %li= link_to 'New Sale', new_sale_path, :class => "btn btn-success active"
+              %a{:href => dish_report_path}
+                %span.glyphicon.glyphicon-glass
+                Dishes
+        %li= link_to 'New Order', new_sale_path, :class => "prominent"
       %ul.nav.navbar-nav.navbar-right
         %li= link_to 'Logout', destroy_user_session_path, :method => :delete
         %li.dropdown

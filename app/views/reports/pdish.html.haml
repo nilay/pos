@@ -1,0 +1,19 @@
+%h3 Total sale (Dish wise)
+
+
+%table{width:"100%", style:"border: 1px solid;"}
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Category
+      %th{align:"right"} Total Sale
+
+  %tbody
+    - @line_items.each do |item|
+      %tr
+        %td{style:"border-top: 1px solid;"}= item.dish.name
+        %td{style:"border-top: 1px solid;"}= item.dish.description
+        %td{style:"border-top: 1px solid;"}= item.dish.category.name if item.dish.category
+        %td{align:"right", style:"border-top: 1px solid;"}
+          %b #{format('%.2f' % item.total_sale)}
