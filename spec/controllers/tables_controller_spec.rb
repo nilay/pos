@@ -19,16 +19,30 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe TablesController, type: :controller do
+  before do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Table. As you add validations to Table, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+        name: 'Test table',
+        capacity: 4,
+        description: 'test description'
+    }
+
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        name: '',
+        capacity: '',
+        description: ''
+    }
+
   }
 
   # This should return the minimal set of values that should be in the session
@@ -47,7 +61,7 @@ RSpec.describe TablesController, type: :controller do
   describe "GET #show" do
     it "assigns the requested table as @table" do
       table = Table.create! valid_attributes
-      get :show, params: {id: table.to_param}, session: valid_session
+      get :show, id: table.to_param, session: valid_session
       expect(assigns(:table)).to eq(table)
     end
   end
@@ -62,7 +76,7 @@ RSpec.describe TablesController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested table as @table" do
       table = Table.create! valid_attributes
-      get :edit, params: {id: table.to_param}, session: valid_session
+      get :edit, id: table.to_param, session: valid_session
       expect(assigns(:table)).to eq(table)
     end
   end
@@ -71,30 +85,30 @@ RSpec.describe TablesController, type: :controller do
     context "with valid params" do
       it "creates a new Table" do
         expect {
-          post :create, params: {table: valid_attributes}, session: valid_session
+          post :create, table: valid_attributes, session: valid_session
         }.to change(Table, :count).by(1)
       end
 
       it "assigns a newly created table as @table" do
-        post :create, params: {table: valid_attributes}, session: valid_session
+        post :create, table: valid_attributes, session: valid_session
         expect(assigns(:table)).to be_a(Table)
         expect(assigns(:table)).to be_persisted
       end
 
       it "redirects to the created table" do
-        post :create, params: {table: valid_attributes}, session: valid_session
+        post :create, table: valid_attributes, session: valid_session
         expect(response).to redirect_to(Table.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved table as @table" do
-        post :create, params: {table: invalid_attributes}, session: valid_session
+        post :create, table: invalid_attributes, session: valid_session
         expect(assigns(:table)).to be_a_new(Table)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {table: invalid_attributes}, session: valid_session
+        post :create, table: invalid_attributes, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,25 +117,30 @@ RSpec.describe TablesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+            name: 'Updated table',
+            capacity: 2,
+            description: 'updatedtest description'
+        }
+
       }
 
       it "updates the requested table" do
         table = Table.create! valid_attributes
-        put :update, params: {id: table.to_param, table: new_attributes}, session: valid_session
+        put :update, id: table.to_param, table: new_attributes, session: valid_session
         table.reload
-        skip("Add assertions for updated state")
+        expect(table.name).to match( new_attributes[:name] )
       end
 
       it "assigns the requested table as @table" do
         table = Table.create! valid_attributes
-        put :update, params: {id: table.to_param, table: valid_attributes}, session: valid_session
+        put :update, id: table.to_param, table: valid_attributes, session: valid_session
         expect(assigns(:table)).to eq(table)
       end
 
       it "redirects to the table" do
         table = Table.create! valid_attributes
-        put :update, params: {id: table.to_param, table: valid_attributes}, session: valid_session
+        put :update, id: table.to_param, table: valid_attributes, session: valid_session
         expect(response).to redirect_to(table)
       end
     end
@@ -129,13 +148,13 @@ RSpec.describe TablesController, type: :controller do
     context "with invalid params" do
       it "assigns the table as @table" do
         table = Table.create! valid_attributes
-        put :update, params: {id: table.to_param, table: invalid_attributes}, session: valid_session
+        put :update, id: table.to_param, table: invalid_attributes, session: valid_session
         expect(assigns(:table)).to eq(table)
       end
 
       it "re-renders the 'edit' template" do
         table = Table.create! valid_attributes
-        put :update, params: {id: table.to_param, table: invalid_attributes}, session: valid_session
+        put :update, id: table.to_param, table: invalid_attributes, session: valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -145,13 +164,13 @@ RSpec.describe TablesController, type: :controller do
     it "destroys the requested table" do
       table = Table.create! valid_attributes
       expect {
-        delete :destroy, params: {id: table.to_param}, session: valid_session
+        delete :destroy, id: table.to_param, session: valid_session
       }.to change(Table, :count).by(-1)
     end
 
     it "redirects to the tables list" do
       table = Table.create! valid_attributes
-      delete :destroy, params: {id: table.to_param}, session: valid_session
+      delete :destroy, id: table.to_param, session: valid_session
       expect(response).to redirect_to(tables_url)
     end
   end

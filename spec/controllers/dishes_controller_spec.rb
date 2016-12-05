@@ -19,16 +19,34 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe DishesController, type: :controller do
+  before do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+  end
+
 
   # This should return the minimal set of attributes required to create a valid
   # Dish. As you add validations to Dish, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    category = FactoryGirl.create(:category)
+    {
+        name:'Test Dishes',
+        description: 'Description added during unit testing',
+        price: 0.0,
+        category_id: category.id
+    }
+
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+        name:'',
+        description: '',
+        price: 0.0,
+        category_id: nil
+    }
+
   }
 
   # This should return the minimal set of values that should be in the session
@@ -47,7 +65,7 @@ RSpec.describe DishesController, type: :controller do
   describe "GET #show" do
     it "assigns the requested dish as @dish" do
       dish = Dish.create! valid_attributes
-      get :show, params: {id: dish.to_param}, session: valid_session
+      get :show, id: dish.to_param, session: valid_session
       expect(assigns(:dish)).to eq(dish)
     end
   end
@@ -62,7 +80,7 @@ RSpec.describe DishesController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested dish as @dish" do
       dish = Dish.create! valid_attributes
-      get :edit, params: {id: dish.to_param}, session: valid_session
+      get :edit, id: dish.to_param, session: valid_session
       expect(assigns(:dish)).to eq(dish)
     end
   end
@@ -71,30 +89,30 @@ RSpec.describe DishesController, type: :controller do
     context "with valid params" do
       it "creates a new Dish" do
         expect {
-          post :create, params: {dish: valid_attributes}, session: valid_session
+          post :create, dish: valid_attributes, session: valid_session
         }.to change(Dish, :count).by(1)
       end
 
       it "assigns a newly created dish as @dish" do
-        post :create, params: {dish: valid_attributes}, session: valid_session
+        post :create, dish: valid_attributes, session: valid_session
         expect(assigns(:dish)).to be_a(Dish)
         expect(assigns(:dish)).to be_persisted
       end
 
       it "redirects to the created dish" do
-        post :create, params: {dish: valid_attributes}, session: valid_session
+        post :create, dish: valid_attributes, session: valid_session
         expect(response).to redirect_to(Dish.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved dish as @dish" do
-        post :create, params: {dish: invalid_attributes}, session: valid_session
+        post :create, dish: invalid_attributes, session: valid_session
         expect(assigns(:dish)).to be_a_new(Dish)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {dish: invalid_attributes}, session: valid_session
+        post :create, dish: invalid_attributes, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,25 +121,30 @@ RSpec.describe DishesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name:'updated dish name',
+          description: 'updtaed description',
+          price: 0.0
+        }
+
       }
 
       it "updates the requested dish" do
         dish = Dish.create! valid_attributes
-        put :update, params: {id: dish.to_param, dish: new_attributes}, session: valid_session
+        put :update, id: dish.to_param, dish: new_attributes, session: valid_session
         dish.reload
-        skip("Add assertions for updated state")
+        expect(dish.name).to match( new_attributes[:name] )
       end
 
       it "assigns the requested dish as @dish" do
         dish = Dish.create! valid_attributes
-        put :update, params: {id: dish.to_param, dish: valid_attributes}, session: valid_session
+        put :update, id: dish.to_param, dish: valid_attributes, session: valid_session
         expect(assigns(:dish)).to eq(dish)
       end
 
       it "redirects to the dish" do
         dish = Dish.create! valid_attributes
-        put :update, params: {id: dish.to_param, dish: valid_attributes}, session: valid_session
+        put :update, id: dish.to_param, dish: valid_attributes, session: valid_session
         expect(response).to redirect_to(dish)
       end
     end
@@ -129,13 +152,13 @@ RSpec.describe DishesController, type: :controller do
     context "with invalid params" do
       it "assigns the dish as @dish" do
         dish = Dish.create! valid_attributes
-        put :update, params: {id: dish.to_param, dish: invalid_attributes}, session: valid_session
+        put :update, id: dish.to_param, dish: invalid_attributes, session: valid_session
         expect(assigns(:dish)).to eq(dish)
       end
 
       it "re-renders the 'edit' template" do
         dish = Dish.create! valid_attributes
-        put :update, params: {id: dish.to_param, dish: invalid_attributes}, session: valid_session
+        put :update, id: dish.to_param, dish: invalid_attributes, session: valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -145,13 +168,13 @@ RSpec.describe DishesController, type: :controller do
     it "destroys the requested dish" do
       dish = Dish.create! valid_attributes
       expect {
-        delete :destroy, params: {id: dish.to_param}, session: valid_session
+        delete :destroy, id: dish.to_param, session: valid_session
       }.to change(Dish, :count).by(-1)
     end
 
     it "redirects to the dishes list" do
       dish = Dish.create! valid_attributes
-      delete :destroy, params: {id: dish.to_param}, session: valid_session
+      delete :destroy, id: dish.to_param, session: valid_session
       expect(response).to redirect_to(dishes_url)
     end
   end
